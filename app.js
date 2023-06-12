@@ -1,25 +1,21 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var app = express();
+let express = require('express');
+let bodyParser = require('body-parser');
+let app = express();
 
-var teste1 = require("./teste1");
-var teste2 = require("./teste2");
-var teste3 = require("./teste3");
-var teste4 = require("./teste4");
-var teste5 = require("./teste5");
-
+let controller = require('./controllers/userController');
+const { permission } = require('./middlewares/permission');
 
 app.set('view engine', 'jade');
 
 app.use(express.json());
 app.use(express.urlencoded());
 
-app.use(bodyParser.json());                        
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(__dirname + '/public'));
 
-app.get('/', function(req, res){
+app.get('/', function (req, res) {
   res.send(`get user/ </br>
   get users/ </br>
   post users/ </br>
@@ -28,15 +24,15 @@ app.get('/', function(req, res){
   `);
 });
 
-app.get("/user", teste1.getUser);
-app.get("/users", teste1.getUsers);
-app.post("/users", teste2)
-app.delete("/users", teste3)
-app.put("/users", teste4)
-app.get("/users/access", teste5);
+app.get("/user", controller.getUser);
+app.get("/users", controller.getUsers);
+app.post("/users", controller.createUser);
+app.delete("/users", permission(), controller.deleteUser);
+app.put("/users", permission() ,controller.updateUser);
+app.get("/users/access", controller.countUserRead);
 
 
-const port  = 3000;
-app.listen(port, function(){
+const port = 3000;
+app.listen(port, function () {
   console.log('Express server listening on port ' + port);
 });
