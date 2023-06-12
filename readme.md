@@ -41,3 +41,11 @@ Retorne quantas vezes determinado usuário foi lido no teste1.
 
 Definina uma forma de criar permissão para o usuario, defina se o usuário pode deletar ou atualizar usuários. Crie um middleware para validar essas permissões e adicione no teste4 e teste3.
 
+# Atualizações futuras:
+
+- Sobre a arquitetura, eu faria uma estrutura de pastas divididas em service, controller e model. 
+- Mudaria o fakeApi para um banco, nesse caso por ser manipulação de dados simples eu usaria sqLite, mais pra frente com um mongoDB ou PostgreSQL.
+- Colocaria algumas funções que se repetem em uma pasta de utils para facilitar o acesso.
+## teste6: 
+
+- Faria uma rota de login que armazenasse os dados dos usuário e verificaria se o usuário logado tem role de admin ou user.
